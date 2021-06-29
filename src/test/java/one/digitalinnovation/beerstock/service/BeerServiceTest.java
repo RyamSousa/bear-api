@@ -52,20 +52,30 @@ public class BeerServiceTest {
 
     @Test
     void whenBeerInformedThenItShouldBeCreated() throws BeerAlreadyRegisteredException {
-        // given
+        // given'
         BeerDTO expectedBeerDTO = BeerDTOBuilder.builder().build().toBeerDTO();
         Beer expectedSavedBeer = beerMapper.toModel(expectedBeerDTO);
 
         // when
         when(beerRepository.findByName(expectedBeerDTO.getName())).thenReturn(Optional.empty());
         when(beerRepository.save(expectedSavedBeer)).thenReturn(expectedSavedBeer);
-
+        
         //then
         BeerDTO createdBeerDTO = beerService.createBeer(expectedBeerDTO);
 
+        // Com Hamcrest
+        assertThat(createdBeerDTO.getId(), is(Matchers.equalTo(expectedBeerDTO.getId())));
+        
         assertThat(createdBeerDTO.getId(), is(equalTo(expectedBeerDTO.getId())));
         assertThat(createdBeerDTO.getName(), is(equalTo(expectedBeerDTO.getName())));
         assertThat(createdBeerDTO.getQuantity(), is(equalTo(expectedBeerDTO.getQuantity())));
+
+        // Verifica se o valor esperado é maior do que 2
+        assertThat(expectedBeerDTO.getQuantity(), is(greaterThan(2)));
+
+        // Sem Hamcrest
+        //assertEquals(expectedBeerDTO.getId(), createdBeerDTO.getId());
+        //assertEquals(expectedBeerDTO.getName(), createdBeerDTO.getName());
     }
 
     @Test
