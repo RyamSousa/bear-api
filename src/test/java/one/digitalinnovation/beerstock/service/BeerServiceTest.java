@@ -159,6 +159,7 @@ public class BeerServiceTest {
         // then
         beerService.deleteById(expectedDeletedBeerDTO.getId());
 
+        // Verifica se o teste foi concluído a partir da interação dos Mocks, se realmente foi deletado ou não
         verify(beerRepository, times(1)).findById(expectedDeletedBeerDTO.getId());
         verify(beerRepository, times(1)).deleteById(expectedDeletedBeerDTO.getId());
     }
@@ -215,18 +216,26 @@ public class BeerServiceTest {
     }
 
 
+    // Testes desenvolvidos utilizando TDD
 
 //
 //    @Test
 //    void whenDecrementIsCalledThenDecrementBeerStock() throws BeerNotFoundException, BeerStockExceededException {
+//        given
+
 //        BeerDTO expectedBeerDTO = BeerDTOBuilder.builder().build().toBeerDTO();
 //        Beer expectedBeer = beerMapper.toModel(expectedBeerDTO);
 //
+//        when
+
 //        when(beerRepository.findById(expectedBeerDTO.getId())).thenReturn(Optional.of(expectedBeer));
 //        when(beerRepository.save(expectedBeer)).thenReturn(expectedBeer);
 //
 //        int quantityToDecrement = 5;
 //        int expectedQuantityAfterDecrement = expectedBeerDTO.getQuantity() - quantityToDecrement;
+//
+//        then
+//
 //        BeerDTO incrementedBeerDTO = beerService.decrement(expectedBeerDTO.getId(), quantityToDecrement);
 //
 //        assertThat(expectedQuantityAfterDecrement, equalTo(incrementedBeerDTO.getQuantity()));
